@@ -14,7 +14,6 @@ function compileStyles() {
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(sourcemaps.write())
-    /*.pipe(gulp.dest('public/widgets/global-menu'))*/
     .pipe(cleanCSS())
     .pipe(rename({basename: 'nhse-global-menu', extname: '.min.css' }))
     .pipe(gulp.dest('public/widgets/global-menu'))

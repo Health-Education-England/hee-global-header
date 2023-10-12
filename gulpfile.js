@@ -34,3 +34,14 @@ gulp.task('serve', gulp.series([
   'build',
   taskServe.serve,
 ]));
+
+gulp.task('default', gulp.series([
+  'build',
+  'serve'
+]));
+
+gulp.task('watch', gulp.series([
+  'build',
+  gulp.parallel([taskServe.serve, watch]),
+]));
+
