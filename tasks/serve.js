@@ -8,6 +8,11 @@ function serve() {
     livereload: true,
     port: 8080,
     root: 'public',
+    middleware: function(connect, opt) {
+      return [
+        cors()
+      ]
+    }
   });
 }
 
