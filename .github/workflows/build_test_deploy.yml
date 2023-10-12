@@ -44,7 +44,7 @@ jobs:
         run: npm run build --prefix hee-prototypes
 
       - name: Merge HEE assets into public folder
-        run: cp -r hee-prototypes/. public/
+        run: cp -r hee-prototypes/public/. public/
 
       - name: Upload Github Pages build artifacts
         uses: actions/upload-artifact@v3
