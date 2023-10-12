@@ -14,7 +14,7 @@ function cleanPublic() {
 
 function watch(done) {
   gulp.watch(['src/**/*.scss'], gulp.parallel([
-    taskAssets.compileScripts
+    taskAssets.compileStyles
   ]));
 
   gulp.watch(['src/**/*.js'], gulp.parallel([

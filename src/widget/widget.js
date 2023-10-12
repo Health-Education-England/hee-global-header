@@ -5,7 +5,7 @@ import GlobalMenu from '../component/global-menu';
 
 const getRemoteComponentMarkup = async () => {
   try {
-    let response = await fetch('https://health-education-england.github.io/hee-global-header/widgets/global-menu/component.html');
+    let response = await fetch('https://health-education-england.github.io/hee-global-header/widgets/global-menu/global-menu.html');
 
     if (!response.ok) {
       throw new Error('Non 200 request code received: ' + response.status);
