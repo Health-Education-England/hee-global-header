@@ -57,7 +57,7 @@ jobs:
   deploy:
     if: github.ref == 'refs/heads/main'
     name: Deploy
-    needs: [bundle]
+    needs: [build]
     runs-on: ubuntu-latest
 
     steps:
