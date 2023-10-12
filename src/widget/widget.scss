@@ -7,7 +7,7 @@
 @import 'node_modules/nhsuk-frontend/packages/core/objects/_width-container.scss';
 @import 'node_modules/nhsuk-frontend/packages/core/elements/_links.scss';
 
-@import '../nhse-global-menu/global-menu';
+@import '../component/global-menu';
 
 .nhse-global-menu {
   @if $nhsuk-include-font-face {

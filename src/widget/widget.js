@@ -1,11 +1,11 @@
 /**
  * Javascript assets for standalone global menu widget.
  **/
-import GlobalMenu from '../nhse-global-menu/global-menu';
+import GlobalMenu from '../component/global-menu';
 
 const getRemoteComponentMarkup = async () => {
   try {
-    let response = await fetch('https://health-education-england.github.io/hee-prototypes/widgets/global-menu/component.html');
+    let response = await fetch('https://health-education-england.github.io/hee-global-header/widgets/global-menu/component.html');
 
     if (!response.ok) {
       throw new Error('Non 200 request code received: ' + response.status);

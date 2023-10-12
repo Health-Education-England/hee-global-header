@@ -6,14 +6,24 @@ const gulp = require('gulp');
 const taskAssets = require('./tasks/assets');
 const taskTemplates = require('./tasks/templates');
 
+function cleanPublic() {
+  return gulp.src('public', { allowEmpty: true})
+    .pipe(clean());
+}
+
 function watch(done) {
   gulp.watch(['src/**/*.scss'], gulp.parallel([
-    taskAssets.compileStyles
+    taskAssets.compileScripts
   ]));
 
   gulp.watch(['src/**/*.js'], gulp.parallel([
     taskAssets.compileScripts
   ]));
 
-  gulp.watch(['app/views/**/*.njk', 'app/views/**/*.html', 'app/assets/**/*.njk'], taskTemplates.buildTemplates);
+  //gulp.watch(['src/**/*.njk', 'src/**/*.html'], taskTemplates.buildTemplates);
 }
+
+gulp.task('build', gulp.series(
+  cleanPublic,
+  'build:assets'
+));
