@@ -17,18 +17,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Checkout HEE prototype repo
+        uses: actions/checkout@v4
+        with:
+          repository: Health-Education-England/hee-prototypes
+          path: hee-prototypes
+          ref: Enhancement/NWPS-1671-nhse-POC-visual-identity
+
       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install widget dependencies
         run: npm install --no-optional
 
       # Build widget assets and templates.
-      - name: Build assets (for Github Pages deployment)
+      - name: Build widget assets
         run: npm run build
+
+      - name: Install HEE dependencies
+        run: npm install --no-optional --prefix hee-prototypes
+
+      - name: Build HEE assets
+        run: npm run build --prefix hee-prototypes
+
+      - name: Merge HEE assets into public folder
+        run: cp -r hee-prototypes/. public/
 
       - name: Upload Github Pages build artifacts
         uses: actions/upload-artifact@v3
@@ -54,11 +70,6 @@ jobs:
         with:
           name: assets
           path: dist/
-
-      # Debugging step to display ./dist directory contents in GitHub action logs.
-      - name: Display structure of downloaded files
-        run: ls -l
-        working-directory: dist/
 
       # Commit any changes to ./dist directory..
       - name: Commit bundled dist changes
