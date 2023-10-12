@@ -5,6 +5,7 @@ const gulp = require('gulp');
 // Task runners.
 const taskAssets = require('./tasks/assets');
 const taskTemplates = require('./tasks/templates');
+const taskServe = require('./tasks/serve');
 
 function cleanPublic() {
   return gulp.src('public', { allowEmpty: true})
@@ -20,10 +21,16 @@ function watch(done) {
     taskAssets.compileScripts
   ]));
 
-  //gulp.watch(['src/**/*.njk', 'src/**/*.html'], taskTemplates.buildTemplates);
+  gulp.watch(['src/**/*.njk', 'src/**/*.html'], taskTemplates.compileTemplates);
 }
 
 gulp.task('build', gulp.series(
   cleanPublic,
-  'build:assets'
+  'build:assets',
+  'build:templates'
 ));
+
+gulp.task('serve', gulp.series([
+  'build',
+  taskServe.serve,
+]));

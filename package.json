@@ -4,7 +4,8 @@
   "description": "Builds and deploys nhse-global-header widget for remote embeds",
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
-    "build": "gulp build"
+    "build": "gulp build",
+    "serve": "gulp serve"
   },
   "repository": {
     "type": "git",
