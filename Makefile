@@ -4,6 +4,7 @@ setup:
 	cd hee-prototypes && git checkout Enhancement/NWPS-1671-nhse-POC-visual-identity
 	cd hee-prototypes && npm install
 	cd hee-prototypes && npm run build
+	npm install
 
 serve:
 	cd hee-prototypes && npm run build
