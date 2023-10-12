@@ -10,7 +10,9 @@ export default () => {
       this.navigation = globalMenu.querySelector('.nhse-global-menu__dropdown');
       this.stateOpen = false;
 
-      this.addEventListeners();
+      if (this.toggleBtn !== null && this.navigation !== null) {
+        this.addEventListeners();
+      }
     }
 
     /**
