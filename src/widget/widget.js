@@ -57,9 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const remoteMenu = createMenuElement(html);
     menuContainer.replaceWith(remoteMenu);
 
-    console.log(containerWidth);
-    console.log(remoteMenu.querySelector('.nhse-global-menu__wrapper').style);
-
     // Apply custom container width if present.
     if (containerWidth !== false) {
       remoteMenu.querySelector('.nhse-global-menu__wrapper')
