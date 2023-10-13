@@ -44,7 +44,7 @@ jobs:
         run: npm install --no-optional --prefix hee-prototypes
 
       - name: Build HEE assets
-        run: npm run build --prefix hee-prototypes
+        run: npm run build:staging --prefix hee-prototypes
 
       - name: Merge HEE assets into public folder
         run: cp -r hee-prototypes/public/. public/
