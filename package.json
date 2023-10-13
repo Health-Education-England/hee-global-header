@@ -4,6 +4,7 @@
   "description": "Builds and deploys nhse-global-header widget for remote embeds",
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
+    "postinstall": "cp -f .env.local .env",
     "build": "gulp build",
     "serve": "gulp serve",
     "watch": "gulp watch"
@@ -24,7 +25,7 @@
     "@playwright/test": "1.36.1",
     "babel-loader": "^8.2.5",
     "cors": "^2.8.5",
-    "dotenv": "^6.0.0",
+    "dotenv": "^6.2.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-beautify": "^3.0.0",

@@ -5,7 +5,9 @@ const cleanCSS = require('gulp-clean-css');
 const rename = require('gulp-rename');
 const taskServe = require('./serve');
 const sass = require('gulp-sass')(require('sass'));
-const webpack = require("webpack-stream");
+const webpack = require('webpack');
+const webpackStream = require("webpack-stream");
+require('dotenv').config()
 
 const DIR_GLOBAL_MENU = './src/widget/';
 
@@ -45,7 +47,7 @@ function compileScripts() {
  */
 function webpackBuild(src, mode, filename, dest) {
   return gulp.src(src)
-    .pipe(webpack({
+    .pipe(webpackStream({
       mode: mode,
       devtool: mode === 'development' ? 'inline-source-map' : false,
       module: {
@@ -58,8 +60,23 @@ function webpackBuild(src, mode, filename, dest) {
               },
             },
           },
-        ],
+        ]
       },
+      resolve: {
+        fallback: {
+          "fs": false,
+          "os": false,
+          "path": false
+        }
+      },
+      plugins: [
+        new webpack.DefinePlugin({
+          'process.env.REMOTE_PROTOCOL': `"${process.env.REMOTE_PROTOCOL}"`,
+          'process.env.REMOTE_HOST': `"${process.env.REMOTE_HOST}"`,
+          'process.env.REMOTE_PORT': `"${process.env.REMOTE_PORT}"`,
+          'process.env.REMOTE_BASEPATH': `"${process.env.REMOTE_BASEPATH}"`
+        })
+      ],
       output: {
         filename: filename,
       },

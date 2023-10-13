@@ -4,6 +4,7 @@ const rename = require('gulp-rename');
 const gulpNunjucks = require('gulp-nunjucks');
 const nunjucks = require('nunjucks');
 const beautify = require('gulp-beautify');
+require('dotenv').config();
 
 const taskServe = require('./serve');
 
@@ -15,19 +16,8 @@ const config = {
   ],
 };
 
-// Add base path for GitHub Pages if not local environment.
-function getBasePath() {
-  let basePath = '';
-
-  if(process.argv.indexOf("--prod") > -1) {
-    basePath = '/hee-global-header';
-  }
-
-  return basePath;
-}
-
 function compileTemplates() {
-  const basePath = getBasePath();
+  const basePath = process.env.REMOTE_BASEPATH;
   const environment = new nunjucks.Environment(
     new nunjucks.FileSystemLoader(config.templates)
   );
