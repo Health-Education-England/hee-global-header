@@ -5,9 +5,11 @@ import GlobalMenu from '../component/global-menu';
 
 const getRemoteComponentMarkup = async () => {
 
+  const remoteUrl = `${process.env.REMOTE_PROTOCOL}//${process.env.REMOTE_HOST}:${process.env.REMOTE_PORT}${process.env.REMOTE_BASEPATH}`;
+
   try {
     let response = await fetch(
-      `${process.env.REMOTE_PROTOCOL}//${process.env.REMOTE_HOST}:${process.env.REMOTE_PORT}${process.env.REMOTE_BASEPATH}/widgets/global-menu/global-menu.html`
+      `${remoteUrl}/widgets/global-menu/global-menu.html`
     );
 
     if (!response.ok) {
