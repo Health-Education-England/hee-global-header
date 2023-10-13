@@ -24,9 +24,11 @@ const getRemoteComponentMarkup = async () => {
 };
 
 const createMenuElement = (html) => {
-  let menu = document.createElement('template');
-  menu.innerHTML = html;
-  return menu.content;
+  let container = document.createElement('div');
+  container.id = 'nhse-global-menu';
+  container.classList.add('nhse-global-menu');
+  container.innerHTML = html;
+  return container;
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -34,6 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (menuContainer === null) {
     throw new Error('#nhse-global-menu container element does not exists, cannot initialise menu.')
+  }
+
+  let containerWidth = false;
+
+  if (menuContainer.hasAttribute('data-container-width')) {
+    containerWidth = menuContainer.getAttribute('data-container-width');
+    if (isNaN(containerWidth)) {
+      throw new Error('#nhse-global-menu data-container-width value must be an integer.')
+    }
   }
 
   // Async call to retrieve component markup remotely.
@@ -45,6 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Replace menuContainer with remote component markup.
     const remoteMenu = createMenuElement(html);
     menuContainer.replaceWith(remoteMenu);
+
+    console.log(containerWidth);
+    console.log(remoteMenu.querySelector('.nhse-global-menu__wrapper').style);
+
+    // Apply custom container width if present.
+    if (containerWidth !== false) {
+      remoteMenu.querySelector('.nhse-global-menu__wrapper')
+        .style.maxWidth = containerWidth + 'px';
+    }
 
     // Initialise javascript behaviour.
     GlobalMenu();

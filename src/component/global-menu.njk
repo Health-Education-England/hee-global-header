@@ -1,15 +1,14 @@
 {% macro globalMenu(params) %}
-  <div class="nhse-global-menu" id="nhse-global-menu">
-    <div class="nhsuk-width-container nhse-global-menu__wrapper">
-      <a aria-label="Visit NHS England website" class="nhse-global-menu__logo" href="https://england.nhs.uk" title="NHS England">
-        <div class="nhse-global-menu__logo__img"></div>
-        <span class="nhse-global-menu__logo__name">England</span>
-      </a>
-      {#<button aria-label="Show global NHS menu" aria-expanded="false" class="nhse-global-menu__btn">
+  <div class="nhsuk-width-container nhse-global-menu__wrapper">
+    <a aria-label="Visit NHS England website" class="nhse-global-menu__logo" href="https://england.nhs.uk" title="NHS England">
+      <div class="nhse-global-menu__logo__img"></div>
+      <span class="nhse-global-menu__logo__name">England</span>
+    </a>
+    {#<button aria-label="Show global NHS menu" aria-expanded="false" class="nhse-global-menu__btn">
         Menu
       </button>#}
-    </div>
-    {#<nav aria-label="Global NHS menu" class="nhse-global-menu__dropdown">
+  </div>
+  {#<nav aria-label="Global NHS menu" class="nhse-global-menu__dropdown">
       <div class="nhsuk-width-container nhse-global-menu__dropdown__wrapper">
         <div class="nhse-global-menu__dropdown__panel">
           <h3>Services</h3>
@@ -85,5 +84,4 @@
         </div>
       </div>
     </nav>#}
-  </div>
 {% endmacro %}
