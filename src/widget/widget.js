@@ -38,12 +38,21 @@ document.addEventListener('DOMContentLoaded', () => {
     throw new Error('#nhse-global-menu container element does not exists, cannot initialise menu.')
   }
 
+  // Validate container width option.
   let containerWidth = false;
-
   if (menuContainer.hasAttribute('data-container-width')) {
     containerWidth = menuContainer.getAttribute('data-container-width');
     if (isNaN(containerWidth)) {
-      throw new Error('#nhse-global-menu data-container-width value must be an integer.')
+      throw new Error('#nhse-global-menu data-container-width value must be an integer');
+    }
+  }
+
+  // Validate theme option.
+  let themeColour = false;
+  if (menuContainer.hasAttribute('data-theme')) {
+    themeColour = menuContainer.getAttribute('data-theme');
+    if (themeColour !== 'blue' && themeColour !== 'white') {
+      throw new Error('#nhse-global-menu data-theme value must be either "blue" or "white"');
     }
   }
 
@@ -61,6 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (containerWidth !== false) {
       remoteMenu.querySelector('.nhse-global-menu__wrapper')
         .style.maxWidth = containerWidth + 'px';
+    }
+
+    // Apply theme class if present.
+    if (containerWidth !== false) {
+      remoteMenu.classList.add('theme-' + themeColour);
     }
 
     // Initialise javascript behaviour.
