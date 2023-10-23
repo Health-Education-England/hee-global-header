@@ -56,6 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Validate logo URL option.
+  let logoUrl = false;
+  if (menuContainer.hasAttribute('data-logourl')) {
+    logoUrl = menuContainer.getAttribute('data-logourl');
+    try {
+      const url = new URL(logoUrl);
+    } catch (err) {
+      throw new Error('#nhse-global-menu data-logourl value must be a valid full URL.');
+    }
+  }
+
   // Async call to retrieve component markup remotely.
   getRemoteComponentMarkup().then((html) => {
     if (html === null) {
@@ -73,8 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Apply theme class if present.
-    if (containerWidth !== false) {
+    if (themeColour !== false) {
       remoteMenu.classList.add('theme-' + themeColour);
+    }
+
+    // Amend logo URL if option present.
+    if (logoUrl !== false) {
+      remoteMenu.querySelector('.nhse-global-menu__logo')
+                .setAttribute('href', logoUrl);
     }
 
     // Initialise javascript behaviour.
