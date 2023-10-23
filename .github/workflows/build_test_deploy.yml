@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Checkout HEE prototype repo
+      - name: Checkout hee-prototypes repo (Enhancement/NWPS-1671-nhse-POC-visual-identity)
         uses: actions/checkout@v4
         with:
           repository: Health-Education-England/hee-prototypes
@@ -40,13 +40,13 @@ jobs:
       - name: Build widget assets
         run: npm run build
 
-      - name: Install HEE dependencies
+      - name: Install hee-prototypes dependencies
         run: npm install --no-optional --prefix hee-prototypes
 
-      - name: Build HEE assets
+      - name: Build hee-prototypes assets
         run: npm run build:staging --prefix hee-prototypes
 
-      - name: Merge HEE assets into public folder
+      - name: Merge hee-prototypes assets into public folder
         run: cp -r hee-prototypes/public/. public/
 
       - name: Upload Github Pages build artifacts
