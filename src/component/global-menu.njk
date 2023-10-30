@@ -1,18 +1,21 @@
 {% macro globalMenu(params) %}
-  <div class="nhsuk-width-container nhse-global-menu__wrapper">
-    <a aria-label="Visit NHS England website" class="nhse-global-menu__logo" href="https://england.nhs.uk" title="NHS England">
-      <div class="nhse-global-menu__logo__img"></div>
-      <span class="nhse-global-menu__logo__name">England</span>
-    </a>
-    {#<button aria-label="Show global NHS menu" aria-expanded="false" class="nhse-global-menu__btn">
-      Menu
-    </button>#}
+  <div class="nhse-global-menu__wrapper">
+    <div class="nhsuk-width-container nhse-global-menu__container">
+      <a aria-label="Visit NHS England website" class="nhse-global-menu__logo" href="https://england.nhs.uk" title="NHS England">
+        <div class="nhse-global-menu__logo__img"></div>
+        <span class="nhse-global-menu__logo__name">England</span>
+      </a>
+      {#<button aria-label="Show global NHS menu" aria-expanded="false" class="nhse-global-menu__btn">
+        Menu
+      </button>#}
+    </div>
   </div>
+  <div class="nhse-global-menu__descriptor"></div>
   {#<nav aria-label="Global NHS menu" class="nhse-global-menu__dropdown">
-      <div class="nhsuk-width-container nhse-global-menu__dropdown__wrapper">
+      <div class="nhsuk-width-container nhse-global-menu__dropdown__container">
         <div class="nhse-global-menu__dropdown__panel">
           <h3>Services</h3>
-          <div class="nhse-global-menu__dropdown__panel__wrapper">
+          <div class="nhse-global-menu__dropdown__panel__container">
             <div class="nhse-global-menu__dropdown__panel__group">
               <ul class="nhse-global-menu__dropdown__panel__list">
                 <li class="nhse-global-menu__dropdown__panel__list__item">
@@ -50,7 +53,7 @@
         </div>
         <div class="nhse-global-menu__dropdown__panel">
           <h3>Information</h3>
-          <div class="nhse-global-menu__dropdown__panel__wrapper">
+          <div class="nhse-global-menu__dropdown__panel__container">
             <div class="nhse-global-menu__dropdown__panel__group">
               <p>Other links and information can be listed here if required.</p>
               <ul class="nhse-global-menu__dropdown__panel__list">

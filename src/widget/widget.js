@@ -31,6 +31,14 @@ const createMenuElement = (html) => {
   return container;
 };
 
+const createDescriptorElement = (text) => {
+  let container = document.createElement('div');
+  container.classList.add('nhse-global-menu__descriptor__wrapper');
+  container.classList.add('nhsuk-width-container');
+  container.innerText = text;
+  return container;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   let menuContainer = document.getElementById('nhse-global-menu');
 
@@ -67,6 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Validate descriptor text.
+  let descriptorText = false;
+  if (menuContainer.hasAttribute('data-descriptor-text')) {
+    descriptorText = menuContainer.getAttribute('data-descriptor-text');
+    if (descriptorText === '') {
+      throw new Error('#nhse-global-menu data-descriptor-text attribute cannot be empty"');
+    }
+  }
+
   // Async call to retrieve component markup remotely.
   getRemoteComponentMarkup().then((html) => {
     if (html === null) {
@@ -79,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Apply custom container width if present.
     if (containerWidth !== false) {
-      remoteMenu.querySelector('.nhse-global-menu__wrapper')
+      remoteMenu.querySelector('.nhse-global-menu__container')
         .style.maxWidth = containerWidth + 'px';
     }
 
@@ -92,6 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (logoUrl !== false) {
       remoteMenu.querySelector('.nhse-global-menu__logo')
                 .setAttribute('href', logoUrl);
+    }
+
+    // Append descriptor element.
+    if (descriptorText !== false) {
+      const descriptorContainer = createDescriptorElement(descriptorText);
+      remoteMenu.querySelector('.nhse-global-menu__descriptor').append(descriptorContainer);
     }
 
     // Initialise javascript behaviour.

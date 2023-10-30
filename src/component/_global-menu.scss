@@ -2,16 +2,12 @@
   background-color: $color_nhsuk-blue;
   width: 100%;
 
-  .nhse-global-menu__wrapper {
+  .nhse-global-menu__container {
     align-content: space-between;
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: nhsuk-spacing(2) 0;
-
-    @media (min-width: 450px) {
-      padding: 12px 0;
-    }
+    padding: 20px 0;
   }
 
   .nhse-global-menu__logo {
@@ -46,10 +42,11 @@
     color: $color_nhsuk-white;
     display: block;
     font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .2px;
+    font-weight: $nhsuk-font-bold;
+    letter-spacing: -0.45px;
     line-height: 13px;
-    padding-top: nhsuk-spacing(1);
+    margin-left: -1px;
+    padding-top: 5px;
 
     @media (min-width: 375px) {
       font-size: 17px;
@@ -59,7 +56,6 @@
     @media (min-width: 450px) {
       font-size: 22px;
       line-height: 22px;
-      padding-top: nhsuk-spacing(2);
     }
   }
 
@@ -149,7 +145,7 @@
     }
   }
 
-  .nhse-global-menu__dropdown__panel__wrapper {
+  .nhse-global-menu__dropdown__panel__container {
     @include mq($from: desktop) {
       justify-content: space-between;
       display: flex;
@@ -166,10 +162,22 @@
     margin-bottom: nhsuk-spacing(3);
   }
 
+  .nhse-global-menu__descriptor {
+    @include nhsuk-typography-responsive(32);
+
+    background-color: $color_nhsuk-white;
+    font-weight: $nhsuk-font-bold;
+    line-height: 40px;
+    padding: nhsuk-spacing(3) 0;
+  }
+
   // White theme variant.
   &.theme-white {
     background-color: $color_nhsuk-white;
-    border-bottom: 4px solid $color_nhsuk-blue;
+
+    .nhse-global-menu__wrapper {
+      border-bottom: 4px solid $color_nhsuk-blue;
+    }
 
     .nhse-global-menu__logo__name {
       color: $color_nhsuk-black;
