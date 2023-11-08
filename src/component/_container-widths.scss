@@ -1,0 +1,19 @@
+:root {
+  --container-width: 960px;
+}
+
+#nhse-global-menu[data-container-width="small"] {
+  --container-width: 960px;
+}
+
+#nhse-global-menu[data-container-width="medium"] {
+  --container-width: 1280px;
+}
+
+#nhse-global-menu[data-container-width="large"] {
+  --container-width: 1440px;
+}
+
+.nhse-global-menu__container.nhsuk-width-container {
+  max-width: var(--container-width) !important;
+}

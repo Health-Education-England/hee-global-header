@@ -172,7 +172,7 @@
   }
 
   // White theme variant.
-  &.theme-white {
+  &[data-theme="white"] {
     background-color: $color_nhsuk-white;
 
     .nhse-global-menu__wrapper {
