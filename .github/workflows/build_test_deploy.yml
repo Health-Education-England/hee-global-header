@@ -40,6 +40,14 @@ jobs:
       - name: Build widget assets
         run: npm run build
 
+      - name: Upload Github Pages build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: widget-assets
+          path: public/widgets/global-menu/**
+          retention-days: 1
+
+      # Build HEE prototype assets and templates.
       - name: Install hee-prototypes dependencies
         run: npm install --no-optional --prefix hee-prototypes
 
@@ -55,6 +63,35 @@ jobs:
           name: assets
           path: public/**
           retention-days: 1
+
+  # Prepare and commit "dist" directory (only widget related assets)
+  bundle:
+    name: Bundle and Commit
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repo from GitHub and use current branch.
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Copy assets from "Build" step into "dist/" directory.
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: widget-assets
+          path: dist/
+
+      # Debugging step to display ./dist directory contents in GitHub action logs.
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: dist/
+
+      # Commit any changes to ./dist directory..
+      - name: Commit bundled dist changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "[Github Actions] - Bundled assets for build number: ${{ github.run_number }}"
 
   # Runs the release job if we're on "main" branch to deploy our latest build to GitHub Pages.
   deploy:
