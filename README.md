@@ -6,7 +6,7 @@ View an example of the component in action [here](https://health-education-engla
 
 ## Getting started
 
-There are three different steps required to get the component displaying on your website.
+There are four different steps required to get the component displaying on your website.
 
 _Please note that all the compiled assets listed below can be found in the `dist` directory of this codebase. You'll 
 need to download these assets and include them onto your templates using the correct absolute or relative paths._
@@ -53,6 +53,21 @@ Include the default version of the header component markup on your template:
 
 Please not the above HTML snippet is using the default options for the component. See below on how to customise the 
 component to suite your website.
+
+### 4. Descriptor text class
+
+If your website contains descriptor text which you would like to style according to the NHS design system, please
+apply the following class: 
+
+`nhse-global-menu-descriptor`
+
+This will provide the correct font face, size, line-height etc for the text. See this example:
+
+```html
+<div class="nhse-global-menu-descriptor">
+  Workforce, training and education
+</div>
+```
 
 ## Component options
 

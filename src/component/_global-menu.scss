@@ -199,3 +199,15 @@
     }
   }
 }
+
+.nhse-global-menu-descriptor {
+  @if $nhsuk-include-font-face {
+    @include _nhsuk-font-face-frutiger;
+    font-family: $nhsuk-font, $nhsuk-font-fallback;
+  }
+  @include nhsuk-typography-responsive(32);
+
+  background-color: $color_nhsuk-white;
+  font-weight: $nhsuk-font-bold;
+  line-height: 40px;
+}
