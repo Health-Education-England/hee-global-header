@@ -15,7 +15,7 @@ jobs:
     steps:
       # Checkout repo from GitHub and use current branch.
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Checkout hee-prototypes repo (Enhancement/NWPS-1671-nhse-POC-visual-identity)
         uses: actions/checkout@v4
@@ -25,7 +25,7 @@ jobs:
           ref: Enhancement/NWPS-1671-nhse-POC-visual-identity
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -41,7 +41,7 @@ jobs:
         run: npm run build
 
       - name: Upload Github Pages build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: widget-assets
           path: public/widgets/global-menu/**
@@ -58,7 +58,7 @@ jobs:
         run: cp -r hee-prototypes/public/. public/
 
       - name: Upload Github Pages build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: assets
           path: public/**
@@ -73,11 +73,11 @@ jobs:
     steps:
       # Checkout repo from GitHub and use current branch.
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Copy assets from "Build" step into "dist/" directory.
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: widget-assets
           path: dist/
@@ -103,11 +103,11 @@ jobs:
     steps:
       # Checkout repo from GitHub and use current branch.
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Copy assets from "Build" step into "dist/" directory.
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: assets
           path: public/
