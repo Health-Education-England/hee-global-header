@@ -8,7 +8,8 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
 
 env:
-  # Optional but recommended: force JS actions to run on Node.js 24 now (early testing)
+  # Force all JavaScript actions to execute using Node.js 24 (early testing / future-proof)
+  # GitHub notes runners will default to Node24 from 16 June 2026.
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
@@ -45,7 +46,7 @@ jobs:
         run: npm run build
 
       - name: Upload GitHub Pages build artifacts (widget-assets)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: widget-assets
           path: public/widgets/global-menu/**
@@ -62,7 +63,7 @@ jobs:
         run: cp -r hee-prototypes/public/. public/
 
       - name: Upload GitHub Pages build artifacts (assets)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: assets
           path: public/**
@@ -79,12 +80,15 @@ jobs:
 
     steps:
       # Checkout repo from GitHub and use current branch.
+      # Setting ref avoids detached HEAD, especially on PR workflows.
       - name: Checkout code
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
 
       # Copy assets from "Build" step into "dist/" directory.
       - name: Download build artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: widget-assets
           path: dist/
@@ -117,7 +121,7 @@ jobs:
 
       # Copy assets from "Build" step into "public/" directory.
       - name: Download build artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: assets
           path: public/
