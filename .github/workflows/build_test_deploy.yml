@@ -7,6 +7,11 @@ on:
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
 
+env:
+  # Force all JavaScript actions to execute using Node.js 24 (early testing / future-proof)
+  # GitHub notes runners will default to Node24 from 16 June 2026.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     name: Build
@@ -15,23 +20,23 @@ jobs:
     steps:
       # Checkout repo from GitHub and use current branch.
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Checkout hee-prototypes repo (Enhancement/NWPS-1671-nhse-POC-visual-identity)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: Health-Education-England/hee-prototypes
           path: hee-prototypes
           ref: Enhancement/NWPS-1671-nhse-POC-visual-identity
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
 
       - name: Install widget dependencies
-        run: npm install --no-optional
+        run: npm ci --no-optional
 
       - name: Configure environment variables
         run: cp -f .github/config/prod.env ./.env
@@ -40,8 +45,8 @@ jobs:
       - name: Build widget assets
         run: npm run build
 
-      - name: Upload Github Pages build artifacts
-        uses: actions/upload-artifact@v4
+      - name: Upload GitHub Pages build artifacts (widget-assets)
+        uses: actions/upload-artifact@v7
         with:
           name: widget-assets
           path: public/widgets/global-menu/**
@@ -49,7 +54,7 @@ jobs:
 
       # Build HEE prototype assets and templates.
       - name: Install hee-prototypes dependencies
-        run: npm install --no-optional --prefix hee-prototypes
+        run: npm ci --no-optional --prefix hee-prototypes
 
       - name: Build hee-prototypes assets
         run: npm run build:staging --prefix hee-prototypes
@@ -57,8 +62,8 @@ jobs:
       - name: Merge hee-prototypes assets into public folder
         run: cp -r hee-prototypes/public/. public/
 
-      - name: Upload Github Pages build artifacts
-        uses: actions/upload-artifact@v4
+      - name: Upload GitHub Pages build artifacts (assets)
+        uses: actions/upload-artifact@v7
         with:
           name: assets
           path: public/**
@@ -70,14 +75,20 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       # Checkout repo from GitHub and use current branch.
+      # Setting ref avoids detached HEAD, especially on PR workflows.
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
 
       # Copy assets from "Build" step into "dist/" directory.
       - name: Download build artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: widget-assets
           path: dist/
@@ -87,11 +98,11 @@ jobs:
         run: ls -R
         working-directory: dist/
 
-      # Commit any changes to ./dist directory..
+      # Commit any changes to ./dist directory.
       - name: Commit bundled dist changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: "[Github Actions] - Bundled assets for build number: ${{ github.run_number }}"
+          commit_message: "[GitHub Actions] - Bundled assets for build number: ${{ github.run_number }}"
 
   # Runs the release job if we're on "main" branch to deploy our latest build to GitHub Pages.
   deploy:
@@ -100,20 +111,23 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       # Checkout repo from GitHub and use current branch.
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      # Copy assets from "Build" step into "dist/" directory.
+      # Copy assets from "Build" step into "public/" directory.
       - name: Download build artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: assets
           path: public/
 
       # Deploys and updates GitHub Pages.
       - name: Deploy GitHub pages
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: public
